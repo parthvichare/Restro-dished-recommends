@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Dishes Search</title>
+</head>
+<body>
+    {% include 'restaurant/navbar.html' %}
+    <h1>Search for Restaurant Dishes and Prices</h1>
+    <form method="get" action="{% url 'search' %}">
+        <input type="text" name="q" placeholder="Search for a dish..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <h2>Search Results for "{{ query }}"</h2>
+        {% if results %}
+            {% for result in results %}
+                <div class="result">
+                    <h3>{{ result.dish }}</h3>
+                    <p>Price: Rs. {{ result.price }}</p>
+                    <p>Restaurant: {{ result.restaurant_name }} ({{ result.restaurant_location }})</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching dishes found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
